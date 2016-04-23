@@ -3,37 +3,37 @@
 ## This version is modifed to work on BusyBox Sh shell
 ## Date command is different in BusyBox from the Bash vrsion
 
-#version 0.1
+#version 0.1.1
 
 #Website Backup Script
 
 #Todays date in ISO-8601 format:
-DAY0=`date -I`
+day0=`date -I`
 
 #Yesterdays date in ISO-8601 format that works in Bash:
 #DAY1=`date -I -d "1 day ago"`
 
 #Yesterdays date in ISO-8601 format that works in BusyBox:
-DAY1=`date -I -d @$(( $(date +%s) - (24*60*60) ))`
+day1=`date -I -d @$(( $(date +%s) - (24*60*60) ))`
 
 
 #The source directory:
-SRC="/var/www/htdocs/"
+source="/var/www/htdocs/"
 
 #The target directory:
-TRG="/backup/website/$DAY0"
+target="/backup/website/$day0"
 
 #The remote server informaions:
-RMT="username@example.org"
+remote="username@example.org"
 
 #The link destination directory:
-LNK="/backup/website/$DAY1"
+link="/backup/website/$day1"
 
-#The rsync options:
-OPT="-avh -e ssh --delete --link-dest=$LNK"
+#Rsync options:
+#OPT="-avh -e ssh --delete --link-dest=$LNK"
 
 #Execute the backup
-rsync $OPT $SRC $RMT:$TRG
+rsync -avh -e ssh --delete --link-dest=$link $source $remote:$target
 
 
 ##optional delete old files
@@ -41,10 +41,10 @@ rsync $OPT $SRC $RMT:$TRG
 ##
 ##DAY29=`date -I -d "29 days ago"`
 ##29 days ago in ISO-8601 busybox sh format
-DAY29=`date -I -d @$(( $(date +%s) - (29*24*60*60) ))`
+#day29=`date -I -d @$(( $(date +%s) - (29*24*60*60) ))`
 
 #Delete the backup from 29 days ago, if it exists
-#if [ -d /backup/website/$DAY29 ]
+#if [ -d /backup/website/$day29 ]
 #then
-#rm /backup/website/$DAY29
+#rm /backup/website/$day29
 #fi

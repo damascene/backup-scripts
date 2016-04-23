@@ -8,13 +8,13 @@
 #Website Backup Script
 
 #Todays date in ISO-8601 format:
-day0=`date -I`
+day0=$(date -I)
 
 #Yesterdays date in ISO-8601 format that works in Bash:
 #DAY1=`date -I -d "1 day ago"`
 
 #Yesterdays date in ISO-8601 format that works in BusyBox:
-day1=`date -I -d @$(( $(date +%s) - (24*60*60) ))`
+day1=$(date -I -d @$(( $(date +%s) - (24*60*60) )))
 
 
 #The source directory:
@@ -33,7 +33,7 @@ link="/backup/website/$day1"
 #OPT="-avh -e ssh --delete --link-dest=$LNK"
 
 #Execute the backup
-rsync -avh -e ssh --delete --link-dest=$link $source $remote:$target
+rsync -avh -e ssh --delete --link-dest="$link" "$source" "$remote:$target"
 
 
 ##optional delete old files

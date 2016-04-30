@@ -3,7 +3,7 @@
 ## This version is modifed to work on BusyBox Sh shell
 ## Date command is different in BusyBox from the Bash vrsion
 
-#version 0.1.1
+#version 0.1.2
 
 #Website Backup Script
 
@@ -33,7 +33,8 @@ link="/backup/website/$day1"
 #OPT="-avh -e ssh --delete --link-dest=$LNK"
 
 #Execute the backup
-rsync -avh -e ssh --delete --link-dest="$link" "$source" "$remote:$target"
+#Remove --dry-run to activate the command. With --dry-run it will just demonistrate what will happen. 
+rsync -avh -e ssh --dry-run --delete --link-dest="$link" "$remote:$source" "$target"
 
 
 ##optional delete old files
